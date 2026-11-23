@@ -88,4 +88,38 @@ class ServicoRepositorioTest {
         assertTrue(repositorio.buscarPorNome(null).isEmpty());
         assertTrue(repositorio.buscarPorNome("   ").isEmpty());
     }
+
+    @Test
+    void deveAtualizarServicoExistente() {
+        repositorio.salvar(new Servico(1, "Corte", 30.0, 30));
+        Servico atualizado = new Servico(1, "Corte Navalhado", 45.0, 40);
+
+        repositorio.atualizar(atualizado);
+
+        Servico buscado = repositorio.buscarPorId(1);
+        assertEquals("Corte Navalhado", buscado.getNome());
+        assertEquals(45.0, buscado.getPreco());
+        assertEquals(40, buscado.getDuracaoMinutos());
+    }
+
+    @Test
+    void deveLancarExcecaoAoAtualizarServicoNuloOuInexistente() {
+        assertThrows(ValidacaoException.class, () -> repositorio.atualizar(null));
+        assertThrows(RecursoNaoEncontradoException.class,
+                () -> repositorio.atualizar(new Servico(99, "Inexistente", 20.0, 15)));
+    }
+
+    @Test
+    void deveExcluirServicoExistente() {
+        repositorio.salvar(new Servico(1, "Corte", 30.0, 30));
+        repositorio.excluir(1);
+
+        assertTrue(repositorio.listar().isEmpty());
+        assertThrows(RecursoNaoEncontradoException.class, () -> repositorio.buscarPorId(1));
+    }
+
+    @Test
+    void deveLancarExcecaoAoExcluirServicoInexistente() {
+        assertThrows(RecursoNaoEncontradoException.class, () -> repositorio.excluir(99));
+    }
 }
