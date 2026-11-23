@@ -1,16 +1,22 @@
 package barbearia.modelo;
 
+import barbearia.excecao.ValidacaoException;
+
 public class Servico {
-    private int id;
+
+    private final int id;
     private String nome;
     private double preco;
     private int duracaoMinutos;
 
     public Servico(int id, String nome, double preco, int duracaoMinutos) {
+        if (id <= 0) {
+            throw new ValidacaoException("O ID do serviço deve ser maior que zero.");
+        }
         this.id = id;
-        this.nome = nome;
-        this.preco = preco;
-        this.duracaoMinutos = duracaoMinutos;
+        setNome(nome);
+        setPreco(preco);
+        setDuracaoMinutos(duracaoMinutos);
     }
 
     public int getId() { return id; }
