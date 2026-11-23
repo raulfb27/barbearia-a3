@@ -44,7 +44,20 @@ public class ServicoRepositorio {
         return new ArrayList<>(servicos);
     }
 
-    public List<Servico> buscarPorNome(String trecho) { return new ArrayList<>(); }
+    public List<Servico> buscarPorNome(String trecho) {
+        List<Servico> resultado = new ArrayList<>();
+        if (trecho == null || trecho.trim().isEmpty()) {
+            return resultado;
+        }
+        String filtro = trecho.trim().toLowerCase();
+        for (Servico servico : servicos) {
+            if (servico.getNome().toLowerCase().contains(filtro)) {
+                resultado.add(servico);
+            }
+        }
+        return resultado;
+    }
+
     public Servico atualizar(Servico servico) { return servico; }
     public void excluir(int id) {}
 }
