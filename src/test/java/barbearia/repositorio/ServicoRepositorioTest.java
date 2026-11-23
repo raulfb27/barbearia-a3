@@ -70,4 +70,22 @@ class ServicoRepositorioTest {
         List<Servico> lista = repositorio.listar();
         assertEquals(2, lista.size());
     }
+
+    @Test
+    void deveBuscarServicosPorTrechoDoNomeIgnorandoMaiusculas() {
+        repositorio.salvar(new Servico(1, "Corte Social", 30.0, 30));
+        repositorio.salvar(new Servico(2, "Corte Degradê", 40.0, 40));
+        repositorio.salvar(new Servico(3, "Barba", 25.0, 20));
+
+        List<Servico> encontrados = repositorio.buscarPorNome("corte");
+        assertEquals(2, encontrados.size());
+    }
+
+    @Test
+    void deveRetornarListaVaziaQuandoNenhumServicoCorresponderAoNome() {
+        repositorio.salvar(new Servico(1, "Corte", 30.0, 30));
+        assertTrue(repositorio.buscarPorNome("Pigmentação").isEmpty());
+        assertTrue(repositorio.buscarPorNome(null).isEmpty());
+        assertTrue(repositorio.buscarPorNome("   ").isEmpty());
+    }
 }
