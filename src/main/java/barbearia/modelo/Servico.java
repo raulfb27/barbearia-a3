@@ -21,9 +21,16 @@ public class Servico {
 
     public int getId() { return id; }
     public String getNome() { return nome; }
+
+    public void setNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            throw new ValidacaoException("O nome do serviço não pode ser vazio.");
+        }
+        this.nome = nome.trim();
+    }
+
     public double getPreco() { return preco; }
-    public int getDuracaoMinutos() { return duracaoMinutos; }
-    public void setNome(String nome) { this.nome = nome; }
     public void setPreco(double preco) { this.preco = preco; }
+    public int getDuracaoMinutos() { return duracaoMinutos; }
     public void setDuracaoMinutos(int minutos) { this.duracaoMinutos = minutos; }
 }
