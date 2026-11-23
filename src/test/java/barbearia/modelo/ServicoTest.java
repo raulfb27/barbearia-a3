@@ -49,4 +49,25 @@ class ServicoTest {
         assertThrows(ValidacaoException.class, () -> servico.setNome(""));
         assertThrows(ValidacaoException.class, () -> servico.setNome("   "));
     }
+
+    @Test
+    void deveAlterarPrecoValido() {
+        Servico servico = new Servico(1, "Corte", 35.0, 30);
+        servico.setPreco(45.50);
+        assertEquals(45.50, servico.getPreco());
+    }
+
+    @Test
+    void deveAceitarPrecoLimiteMinimo() {
+        Servico servico = new Servico(1, "Corte", 35.0, 30);
+        servico.setPreco(0.01);
+        assertEquals(0.01, servico.getPreco());
+    }
+
+    @Test
+    void deveLancarExcecaoQuandoPrecoForZeroOuNegativo() {
+        Servico servico = new Servico(1, "Corte", 35.0, 30);
+        assertThrows(ValidacaoException.class, () -> servico.setPreco(0));
+        assertThrows(ValidacaoException.class, () -> servico.setPreco(-10.0));
+    }
 }
