@@ -30,7 +30,14 @@ public class Servico {
     }
 
     public double getPreco() { return preco; }
-    public void setPreco(double preco) { this.preco = preco; }
+
+    public void setPreco(double preco) {
+        if (preco <= 0) {
+            throw new ValidacaoException("O preço do serviço deve ser maior que zero.");
+        }
+        this.preco = preco;
+    }
+
     public int getDuracaoMinutos() { return duracaoMinutos; }
     public void setDuracaoMinutos(int minutos) { this.duracaoMinutos = minutos; }
 }
