@@ -39,5 +39,11 @@ public class Servico {
     }
 
     public int getDuracaoMinutos() { return duracaoMinutos; }
-    public void setDuracaoMinutos(int minutos) { this.duracaoMinutos = minutos; }
+
+    public void setDuracaoMinutos(int minutos) {
+        if (minutos <= 0) {
+            throw new ValidacaoException("A duração do serviço deve ser maior que zero.");
+        }
+        this.duracaoMinutos = minutos;
+    }
 }
