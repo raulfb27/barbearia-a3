@@ -70,4 +70,25 @@ class ServicoTest {
         assertThrows(ValidacaoException.class, () -> servico.setPreco(0));
         assertThrows(ValidacaoException.class, () -> servico.setPreco(-10.0));
     }
+
+    @Test
+    void deveAlterarDuracaoValida() {
+        Servico servico = new Servico(1, "Corte", 35.0, 30);
+        servico.setDuracaoMinutos(45);
+        assertEquals(45, servico.getDuracaoMinutos());
+    }
+
+    @Test
+    void deveAceitarDuracaoLimiteMinima() {
+        Servico servico = new Servico(1, "Corte", 35.0, 30);
+        servico.setDuracaoMinutos(1);
+        assertEquals(1, servico.getDuracaoMinutos());
+    }
+
+    @Test
+    void deveLancarExcecaoQuandoDuracaoForZeroOuNegativa() {
+        Servico servico = new Servico(1, "Corte", 35.0, 30);
+        assertThrows(ValidacaoException.class, () -> servico.setDuracaoMinutos(0));
+        assertThrows(ValidacaoException.class, () -> servico.setDuracaoMinutos(-15));
+    }
 }
