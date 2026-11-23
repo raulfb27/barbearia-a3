@@ -27,4 +27,26 @@ class ServicoTest {
     void deveLancarExcecaoAoCriarServicoComIdInvalido() {
         assertThrows(ValidacaoException.class, () -> new Servico(0, "Corte", 35.0, 30));
     }
+
+    @Test
+    void deveAlterarNomeValido() {
+        Servico servico = new Servico(1, "Corte", 35.0, 30);
+        servico.setNome("Barba Completa");
+        assertEquals("Barba Completa", servico.getNome());
+    }
+
+    @Test
+    void deveRemoverEspacosExtrasAoAlterarNome() {
+        Servico servico = new Servico(1, "Corte", 35.0, 30);
+        servico.setNome("  Sobrancelha  ");
+        assertEquals("Sobrancelha", servico.getNome());
+    }
+
+    @Test
+    void deveLancarExcecaoQuandoNomeForNuloOuVazio() {
+        Servico servico = new Servico(1, "Corte", 35.0, 30);
+        assertThrows(ValidacaoException.class, () -> servico.setNome(null));
+        assertThrows(ValidacaoException.class, () -> servico.setNome(""));
+        assertThrows(ValidacaoException.class, () -> servico.setNome("   "));
+    }
 }
