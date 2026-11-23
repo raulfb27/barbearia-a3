@@ -1,5 +1,6 @@
 package barbearia.repositorio;
 
+import barbearia.excecao.RecursoNaoEncontradoException;
 import barbearia.excecao.ValidacaoException;
 import barbearia.modelo.Servico;
 import java.util.ArrayList;
@@ -30,8 +31,19 @@ public class ServicoRepositorio {
         return servico;
     }
 
-    public Servico buscarPorId(int id) { return null; }
-    public List<Servico> listar() { return new ArrayList<>(); }
+    public Servico buscarPorId(int id) {
+        for (Servico servico : servicos) {
+            if (servico.getId() == id) {
+                return servico;
+            }
+        }
+        throw new RecursoNaoEncontradoException("Serviço não encontrado com o ID: " + id);
+    }
+
+    public List<Servico> listar() {
+        return new ArrayList<>(servicos);
+    }
+
     public List<Servico> buscarPorNome(String trecho) { return new ArrayList<>(); }
     public Servico atualizar(Servico servico) { return servico; }
     public void excluir(int id) {}
