@@ -58,6 +58,19 @@ public class ServicoRepositorio {
         return resultado;
     }
 
-    public Servico atualizar(Servico servico) { return servico; }
-    public void excluir(int id) {}
+    public Servico atualizar(Servico servicoAtualizado) {
+        if (servicoAtualizado == null) {
+            throw new ValidacaoException("O serviço atualizado não pode ser nulo.");
+        }
+        Servico existente = buscarPorId(servicoAtualizado.getId());
+        existente.setNome(servicoAtualizado.getNome());
+        existente.setPreco(servicoAtualizado.getPreco());
+        existente.setDuracaoMinutos(servicoAtualizado.getDuracaoMinutos());
+        return existente;
+    }
+
+    public void excluir(int id) {
+        Servico existente = buscarPorId(id);
+        servicos.remove(existente);
+    }
 }
