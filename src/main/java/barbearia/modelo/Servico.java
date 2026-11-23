@@ -1,6 +1,7 @@
 package barbearia.modelo;
 
 import barbearia.excecao.ValidacaoException;
+import java.util.Locale;
 
 public class Servico {
 
@@ -19,8 +20,13 @@ public class Servico {
         setDuracaoMinutos(duracaoMinutos);
     }
 
-    public int getId() { return id; }
-    public String getNome() { return nome; }
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
 
     public void setNome(String nome) {
         if (nome == null || nome.trim().isEmpty()) {
@@ -29,7 +35,9 @@ public class Servico {
         this.nome = nome.trim();
     }
 
-    public double getPreco() { return preco; }
+    public double getPreco() {
+        return preco;
+    }
 
     public void setPreco(double preco) {
         if (preco <= 0) {
@@ -38,12 +46,19 @@ public class Servico {
         this.preco = preco;
     }
 
-    public int getDuracaoMinutos() { return duracaoMinutos; }
+    public int getDuracaoMinutos() {
+        return duracaoMinutos;
+    }
 
     public void setDuracaoMinutos(int minutos) {
         if (minutos <= 0) {
             throw new ValidacaoException("A duração do serviço deve ser maior que zero.");
         }
         this.duracaoMinutos = minutos;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(Locale.US, "ID: %d | %s | R$ %.2f | %d min", id, nome, preco, duracaoMinutos);
     }
 }
