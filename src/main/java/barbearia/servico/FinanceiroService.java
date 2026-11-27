@@ -8,6 +8,9 @@ import java.util.List;
 
 public class FinanceiroService {
 
+    private static final LocalDate DATA_MINIMA = LocalDate.of(1900, 1, 1);
+    private static final LocalDate DATA_MAXIMA = LocalDate.of(2100, 12, 31);
+
     private final AtendimentoRepositorio repositorio;
 
     public FinanceiroService(AtendimentoRepositorio repositorio) {
@@ -36,14 +39,14 @@ public class FinanceiroService {
     }
 
     public double faturamentoPorServico(int idServico) {
-        return repositorio.listar().stream()
+        return repositorio.listarPorPeriodo(DATA_MINIMA, DATA_MAXIMA).stream()
                 .filter(a -> a.getServico() != null && a.getServico().getId() == idServico)
                 .mapToDouble(Atendimento::getValorCobrado)
                 .sum();
     }
 
     public double ticketMedio() {
-        List<Atendimento> todos = repositorio.listar();
+        List<Atendimento> todos = repositorio.listarPorPeriodo(DATA_MINIMA, DATA_MAXIMA);
         if (todos.isEmpty()) {
             return 0.0;
         }

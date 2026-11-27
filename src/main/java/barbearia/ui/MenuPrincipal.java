@@ -4,12 +4,22 @@ import java.util.Scanner;
 
 public class MenuPrincipal {
 
+    private final MenuClientes menuClientes;
     private final MenuServicos menuServicos;
+    private final MenuAtendimentos menuAtendimentos;
     private final MenuFinanceiro menuFinanceiro;
     private final Scanner scanner;
 
-    public MenuPrincipal(MenuServicos menuServicos, MenuFinanceiro menuFinanceiro, Scanner scanner) {
+    public MenuPrincipal(
+            MenuClientes menuClientes,
+            MenuServicos menuServicos,
+            MenuAtendimentos menuAtendimentos,
+            MenuFinanceiro menuFinanceiro,
+            Scanner scanner
+    ) {
+        this.menuClientes = menuClientes;
         this.menuServicos = menuServicos;
+        this.menuAtendimentos = menuAtendimentos;
         this.menuFinanceiro = menuFinanceiro;
         this.scanner = scanner;
     }
@@ -35,9 +45,9 @@ public class MenuPrincipal {
             }
 
             switch (opcao) {
-                case 1 -> System.out.println("Módulo de Clientes aguardando integração.");
+                case 1 -> menuClientes.exibir();
                 case 2 -> menuServicos.exibir();
-                case 3 -> System.out.println("Módulo de Atendimentos aguardando integração.");
+                case 3 -> menuAtendimentos.exibir();
                 case 4 -> menuFinanceiro.exibir();
                 case 0 -> System.out.println("Encerrando o sistema. Até logo!");
                 default -> System.out.println("Opção inválida.");

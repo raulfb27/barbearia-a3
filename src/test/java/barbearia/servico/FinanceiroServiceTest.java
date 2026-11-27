@@ -24,10 +24,6 @@ class FinanceiroServiceTest {
         dadosSimulados = new ArrayList<>();
 
         AtendimentoRepositorio repositorioStub = new AtendimentoRepositorio() {
-            @Override
-            public List<Atendimento> listar() {
-                return new ArrayList<>(dadosSimulados);
-            }
 
             @Override
             public List<Atendimento> listarPorCliente(int idCliente) {
